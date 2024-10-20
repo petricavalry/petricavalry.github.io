@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Blog</title>
+    </head>
+    <body>
+        
+    <h1>Download F-Droid Packages Via Command Line</h1>
+    
+    <p>Download F-Droid repository package index from a mirror.</p>
+<pre data-lang="console" class="language-console "><code class="language-console" data-lang="console">curl https:&#x2F;&#x2F;mirrors.tuna.tsinghua.edu.cn&#x2F;fdroid&#x2F;repo&#x2F;index-v2.json -o index-v2.json
+</code></pre>
+<p>This command searches the package index for packages related to "minetest" by English name (case-insensitive).</p>
+<pre data-lang="console" class="language-console "><code class="language-console" data-lang="console">jq -r &#x27;.packages | with_entries (select(.value.metadata.name.&quot;en-US&quot; | test(&quot;minetest&quot;; &quot;i&quot;))) | .[].versions[] | &quot;\(.manifest.versionName) \(.file.name)&quot;&#x27; index-v2.json
+</code></pre>
+<p>This output is from October 20, 2024. The path is relative to <code>https://mirrors.tuna.tsinghua.edu.cn/fdroid/repo</code>.</p>
+<pre><code>5.9.1 &#x2F;net.minetest.minetest_5090100.apk
+5.9.0 &#x2F;net.minetest.minetest_51.apk
+5.8.1 &#x2F;net.minetest.minetest_48.apk
+</code></pre>
+
+
+    </body>
+</html>
