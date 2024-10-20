@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>{{ page.title }}</h1>
+    {% if page.toc %}
+    <ul>
+        {% for chapter in page.toc %}
+        <li>
+            <a href="{{ chapter.permalink }}">{{ chapter.title }}</a>
+            {% if chapter.children %}
+            <ul>
+                {% for section in chapter.children %}
+                <li><a href="{{ section.permalink }}">{{ section.title }}</a></li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {{ page.content | safe }}
+{% endblock content %}
